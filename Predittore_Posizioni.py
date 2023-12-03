@@ -7,7 +7,7 @@ from catboost import CatBoostClassifier
 @st.cache_resource
 def load_model():
     model = CatBoostClassifier()
-    model.load_model('catboost_posizioni.cbm', format='cbm')
+    model.load_model('catboost_funzioni.cbm', format='cbm')
     return model
 
 
@@ -23,7 +23,7 @@ def main():
 
     with st.form("manual_entry_form"):
         ruolo = st.text_input("Ruolo")
-        funzione = st.text_input("Funzione")
+        posizione = st.text_input("Posizione")
         azienda = st.text_input("Azienda")
         genere = st.selectbox("Genere", ["Maschile", "Femminile"])
         studi = st.text_input("Studi")
@@ -31,8 +31,8 @@ def main():
         submitted = st.form_submit_button("Submit")
         if submitted:
 
-            data = pd.DataFrame([[ruolo, funzione, azienda, genere, studi, eta]],
-                                columns=["ruolo", "funzione", "azienda", "Genere", "studi", "Età"])
+            data = pd.DataFrame([[ruolo, posizione, azienda, genere, studi, eta]],
+                                columns=["ruolo", "posizione", "azienda", "Genere", "studi", "Età"])
 
             prediction = predict(data)
             st.write("Prediction:", prediction)
